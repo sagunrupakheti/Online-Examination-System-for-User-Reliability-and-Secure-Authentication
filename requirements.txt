@@ -1,0 +1,25 @@
+
+**************************
+Requirements
+******************************
+
+
+1. Install anaconda
+
+2. Install opencv in conda environment
+
+3. Install pillow in conda environment
+
+4. Recommended IDE - Pycharm
+
+5. Create an environment in the IDE
+
+6. Activate the environment
+
+7. Add a superuser for accessing the data
+
+8. Run the server
+
+9. Please download haarcascade_frontalface_default.xml file and add it in the opencv folder
+
+10. Add your email and password in the settings.py file for sending emails 
