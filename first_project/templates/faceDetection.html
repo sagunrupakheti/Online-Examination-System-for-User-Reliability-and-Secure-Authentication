@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends "studentDashboard.html" %}
+
+{% block body_block %}
+    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 81vw;">
+     <div class="col-xl-12 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2" style="background-color:#0455A5">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2 ">
+                        <div class="text-s font-weight-bold text-white text-uppercase mb-1">
+                            <center> Please look into the camera<br><br>
+                            <p class="text-white">Once you can see your username on your face, click on proceed.</strong><p></p></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <center>
+        <img src="{% url 'face_feed' %}" class="mt-3" style="border-style: ridge; border-width:2em;">
+    </center>
+<center>
+    <a href="checkAuthenticateUser" class="btn text-white mt-3" style="background-color:#0455A5">Proceed</a>
+    </center>
+      </div>
+{% endblock %}

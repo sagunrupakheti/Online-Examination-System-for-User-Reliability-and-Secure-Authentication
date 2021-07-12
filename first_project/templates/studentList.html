@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% extends "adminDashboard.html" %}
+
+{% block body_block %}
+<style>
+    #manageStudent {
+        background-color:#A2A5B2;
+    }
+    #manageStudent a, i{
+     color:#33364D;
+    }
+
+    #manageTeacher i{
+     color:#33364D;
+    }
+</style>
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+          <div class="card-body p-0">
+            <div class="row">
+              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+              <div class="col-lg-12">
+                <div class="p-5">
+                  <div class="">
+                    <div class="card shadow mb-4">
+                          <div class="card-header py-3 text-white" style="background-color:#0455A5;">
+                              <h6 class="m-0 font-weight-bold exit">All Students</h6>
+                          </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                            {{message}}
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                           <form class="mb-0" method="POST" style="padding:1%">
+                                {% csrf_token %}
+                                <div class="row">
+                                <div class="row col-3 ml-2">
+                                    {{myFilter.form}}
+                                </div>
+                                <input type="submit" value="Search" class="btn text-white" style="background-color:#0455A5;height:5vh;">
+                                 </div>
+                            </form>
+                          <div class="card-body">
+                              <div class="table-responsive form-popup">
+                                  <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                      <thead>
+                                          <tr class="bg-dark text-white text-center">
+                                              <th>First Name</th>
+                                              <th>Last Name</th>
+                                              <th>Address</th>
+                                              <th>Contact</th>
+                                              <th>DOB</th>
+                                              <th>Update</th>
+                                              <th>Delete</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% if student_dict %}
+                                              {% for s in student_dict %}
+                                                <tr>
+                                                  <td>{{s.firstName}} </td>
+                                                  <td>{{s.lastName}} </td>
+                                                  <td>{{s.address}} </td>
+                                                  <td>{{s.contact}} </td>
+                                                  <td>{{s.dob}} </td>
+                                                  <form method="POST">
+                                                    <td><a href="{% url 'updateTeacher' s.user %}" style="text-decoration:none"><i class="fas fa-edit text-success"></i></a></td>
+<!-- onclick="openForm()" -->                     </form>
+                                                  <td><a href="{% url 'deleteUser' s.user %}" style="text-decoration:none"><i class="fas fa-trash-alt text-danger"></i></td>
+                                                </tr>
+                                              {% endfor %}
+                                            {% else %}
+                                              <h1>No records yet</h1>
+                                          {% endif %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+
+<form method="POST">
+  {% csrf_token %}
+</form>
+<div class="form-popup form-overlay" id="myForm">
+  <form action="" class="form-container">
+    {% csrf_token %}
+
+    <button type="submit" class="btn">Save</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+{% endblock %}

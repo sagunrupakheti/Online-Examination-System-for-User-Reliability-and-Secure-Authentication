@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% extends "teacherDashboard.html"%}
+{% block body_block %}
+<style>
+    #examList {
+        background-color:#A2A5B2;
+
+    }
+    #examList a, i{
+     color:#33364D;
+    }
+    #examList i{
+     color:#33364D;
+    }
+</style>
+
+{% csrf_token %}
+
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg ">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+          <div class="card-body p-0">
+            <div class="row">
+              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+              <div class="col-lg-12">
+                <div class="p-5">
+                  <div class="text-center">
+                    <div class="card shadow mb-4">
+                      <div class="card-header text-white py-3" style="background-color:#0455A5;">
+                          <h6 class="m-0 font-weight-bold">Upcoming Examinations</h6>
+                      </div>
+                        {% if messages %}
+                          {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                            {{message}}
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="table-responsive form-popup">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr class="bg-dark text-white">
+                                            <th style="width:2vw">S.No</th>
+                                            <th scope="row">Exam Name</th>
+                                            <th>Duration</th>
+                                            <th>Exam Date</th>
+                                            <th>Status</th>
+                                            <th>Add Exam Content</th>
+                                            <th>Change Status</th>
+                                             <th>Exam End Time</th>
+                                            <th>Expire Exam</th>
+
+<!--                                            <th>Time Left</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if exam_dict %}
+                                            {% for e in exam_dict %}
+                                              <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{e.examName}} </td>
+                                                <td>{{e.duration}} minutes</td>
+                                                <td>{{e.exam_date}} </td>
+                                                <td>{{e.exam_status}}</td>
+                                                {% if e.exam_status == 'Pending' %}
+                                                    <td><a href="{% url 'setExamInfoTeacher' e.examId %}">Set Questions</a></td>
+                                                    <td><a href="{% url 'showPasswordView' e.examId %}">Make Live</a></td>
+                                                {% else %}
+                                                  <td>Question Modelling Completed</td>
+                                                  <td class="text-success">Live Now</td>
+                                                  <td>{{e.exam_end_time}}</td>
+                                                  <div id="event-box" style="display:None">
+                                                      {{e.exam_end_time|date:"Y/m/d H:i:s"}}
+                                                  </div>
+                                                    <td><a href="{% url 'makeExamExpire' e.examId %}">Expire Exam</a></td>
+                                                {% endif %}
+                                                      <div id="countdown-box">
+                                                          <div class="" role="status"></div>
+                                                      </div>
+                                              </tr>
+
+                                            {% endfor %}
+                                        {% else %}
+                                        <h3>No pending exams available</h3>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     <script>
+        const eventBox = document.getElementById('event-box')
+        const date = new Date()
+        date.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' })
+        console.log(date)
+        const countdownBox = document.getElementById('countdown-box')
+
+        //get milliseconds
+        const endDate = Date.parse(eventBox.textContent)
+        text = eventBox.textContent
+        text.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' })
+        console.log(text)
+        ed = Date.parse(text)
+        console.log(ed)
+
+
+        const myCountdown= setInterval(()=>{
+            const currentDate = new Date().getTime()
+            console.log(currentDate)
+            console.log(ed)
+            const difference = ed - currentDate
+            console.log(difference)
+            //days
+            const d = Math.floor(ed/(1000*60*60*24)-(currentDate/(1000*60*60*24)))
+            //hrs
+            const h = Math.floor((ed/(1000*60*60)-(currentDate/(1000*60*60))) % 24)
+            // mins
+            const m = Math.floor((ed/(1000*60)-(currentDate/(1000*60))) % 60)
+            //seconds
+            const s = Math.floor((ed/(1000)-(currentDate/(1000))) % 60)
+
+            if (difference>0){
+            countdownBox.innerHTML = h+ "hours, "+ m+ "minutes, "+s+ "seconds"
+            }
+            else{
+               clearInterval(myCountdown)
+               countdownBox.innerHTML = "Time Over"
+            }
+        }, 1000)
+     </script>
+    {% endblock %}

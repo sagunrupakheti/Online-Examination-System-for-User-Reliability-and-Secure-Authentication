@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends "teacherDashboard.html"%}
+{% block body_block %}
+<style>
+    #teacherDash {
+        background-color:#A2A5B2;
+        color:black;
+    }
+    #teacherDash a, i{
+     color:#33364D;
+    }
+    #teacherDash i{
+     color:#33364D;
+    }
+</style>
+  <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 81vw;">
+    <div class="card-body">
+      <center>
+        <h5 class="card-title"><strong>Teacher Profile</strong></h5>
+      </center>
+    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+        {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% if user_info %}
+      {% for u in user_info %}
+        <div style="display:flex;flex-direction:row;">
+        <div class="" style="width:auto;object-fit:contain;">
+          <img class="card-img-top" src="{{u.profile_pic.url}}" alt="Card image cap" style="width:auto;max-height:48vh;object-fit:contain;">
+           <form method="POST" enctype="multipart/form-data"  style="margin: 0 auto;">
+             {% csrf_token %}
+<!--             <input type="file" id="pic" name="pic" class="form-control col-9 mt-2">-->
+             {{form}}
+             <input type="submit" class="btn text-white mt-2" style="background-color:#0455A5" value="Change Profile Picture">
+           </form>
+        </div>
+        <div style="width:50vw;">
+          <ul class="list-group list-group-flush ">
+          <li class="list-group-item  bg-light">UserName: {{u.user}}</li>
+          <li class="list-group-item  bg-light">Name: {{u.firstName}} {{u.lastName}}</li>
+          <li class="list-group-item ">Address: {{u.address}}</li>
+          <li class="list-group-item  bg-light">Contact: {{u.contact}}</li>
+          <li class="list-group-item ">Date of Birth : {{u.dob}}</li>
+          <li class="list-group-item ">Course : {{u.course_id}}</li>
+        </ul>
+        </div>
+
+        </div>
+      {% endfor %}
+    {% endif %}
+      </div>
+
+{% endblock %}

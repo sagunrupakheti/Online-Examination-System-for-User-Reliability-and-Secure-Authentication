@@ -1,0 +1,115 @@
+<!-- necesssary to add doctype -->
+<!DOCTYPE html>
+{% extends "adminDashboard.html" %}
+{% load static %}
+{% block body_block %}
+<style>
+    #registerUser {
+        background-color:#A2A5B2;
+
+    }
+    #registerUser a, i{
+     color:#33364D;
+    }
+    #registerUser i{
+     color:#33364D;
+    }
+</style>
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg ">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+            <div class="col-lg-12">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4"><strong>Register New User</strong></h1>
+                  <hr>
+                </div>
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                    {{message}}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+                  <div class="form-group">
+                    {% if registered %}
+                      <h1> Successfully registered! </h1>
+                      <button class="btn btn-secondary btn-user text-white" ><a href="{% url 'registerUser'%}" style="text-decoration:none; color:white">Back to User Form</a></button>
+                    {% else %}
+                    <!-- <table style="margin-left:5vw;"> -->
+                      <div class="col-lg-12">
+                        <div class="p-5">
+                      <form action="" method="POST" enctype="multipart/form-data"  class="form-group row">
+                          {% csrf_token %}
+<!--                          {{ user_form }}-->
+                          <div class="row col-4">
+                            <label>Username:</label>
+                            {{user_form.username}}
+                          </div>
+                          <div class="row col-4 ml-2">
+                            <label>Password:</label>
+                            {{user_form.password}}
+                          </div>
+                           <div class="row col-4 ml-2">
+                            <label>Email:</label>
+                            {{user_form.email}}
+                          </div>
+
+                          <div class="row col-4 mt-4">
+                            <label>First Name:</label>
+                            {{profile_form.firstName}}
+                          </div>
+                          <div class="row col-4 ml-2 mt-4">
+                            <label>Last Name:</label>
+                            {{profile_form.lastName}}
+                          </div>
+                          <div class="row col-4 ml-2 mt-4">
+                            <label>Date of Birth:</label>
+                            {{profile_form.dob}}
+                          </div>
+                           <div class="row col-8 mt-4">
+                            <label>Address:</label>
+                            {{profile_form.address}}
+                          </div>
+                          <div class="row col-4 ml-2 mt-4">
+                            <label>Contact Number:</label>
+                            {{profile_form.contact}}
+                          </div>
+                           <div class="row col-4 mt-4">
+                            <label>Course:</label>
+                            {{profile_form.course_id}}
+                          </div>
+                           <div class="row col-4 ml-2 mt-4">
+                            <label>User Type:</label>
+                            {{profile_form.userType}}
+                          </div>
+                          <div class="row col-4 mt-4">
+                            <label>Profile Picture:</label>
+                            {{profile_form.profile_pic}}
+                          </div>
+<!--                          {{ profile_form }}-->
+                          <br>
+                          <input type="submit" name="" value="Register" class="btn mt-3 text-white" style="background-color:#0455A5;">
+                      </form>
+                    </div>
+                    <!-- </table> -->
+                  </div>
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}

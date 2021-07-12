@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% extends "adminDashboard.html" %}
+{% block body_block %}
+<style>
+    #manageCourse {
+        background-color:#A2A5B2;
+        color:black;
+    }
+    #manageCourse a, i{
+     color:#33364D;
+    }
+    #manageCourse i{
+     color:#33364D;
+    }
+</style>
+<div class="container">
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+
+          <div class="row">
+            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+            <div class="col-lg-12">
+              <div class="p-5">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div class="col-xl-9 mx-auto mb-4 mt-0">
+                         <h1 class="mb-9 " style="color:#33364D"><strong><center>Add Course</center></strong></h1>
+                        <hr>
+                    </div>
+                </div>
+                <form method="POST" >
+                  {% csrf_token %}
+                    <div class="row " style="margin-left:13vw;">
+                        <div class="col-lg-4  ">
+                        <label>Course Code:</label>
+                        {{course_form.course_code}}
+                    </div>
+                    <div class="col-lg-4  ml-2" >
+                        <label>Course Name:</label>
+                        {{course_form.course_name}}
+                    </div>
+                    <div class="mt-4" >
+                        <input type="submit" name="" value="Add Course" class="btn text-white" style="background-color:#0455A5">
+                    </div>
+                    </div>
+
+<!--                   {{ course_form.as_p}}-->
+<!--                  <br>-->
+<!--                  <input type="submit" name="" value="Add Course" class="btn btn-primary ">-->
+              </form>
+              </form>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="card o-hidden border-0 shadow-lg my-2">
+      <div class="card-body p-0">
+        <div class="row">
+          <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+          <div class="col-lg-12">
+            <div class="p-5">
+              <div class="">
+                <div class="card shadow mb-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                      <div class="card-header text-white py-3" style="background-color:#0455A5;">
+                          <h6 class="m-0 font-weight-bold text-white">All Courses</h6>
+                      </div>
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                  <thead>
+                                      <tr class="bg-dark text-white text-center">
+                                          <th width="3vw">S.No</th>
+                                          <th>Course Code </th>
+                                          <th>Course Name</th>
+                                          <th>Edit</th>
+                                          <th>Delete</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% if course_dict %}
+                                          {% for c in course_dict %}
+                                            <tr>
+                                              <td>{{forloop.counter}}.</td>
+                                              <td>{{c.course_code}} </td>
+                                              <td>{{c.course_name}} </td>
+                                              <td><a href="{% url 'updateCourse' c.course_id %}" style="text-decoration:none"><i class="fas fa-edit text-success"></i></a></td>
+                                              <td><a href="{% url 'deleteCourse' c.course_id %}" style="text-decoration:none"><i class="fas fa-trash-alt text-danger"></i></a></td>
+
+                                            </tr>
+                                          {% endfor %}
+                                        {% else %}
+                                          <h1>Hello</h1>
+                                      {% endif %}
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+{% endblock %}

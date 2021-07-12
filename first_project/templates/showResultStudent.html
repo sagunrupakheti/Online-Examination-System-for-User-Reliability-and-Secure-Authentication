@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% extends "studentDashboard.html" %}
+
+{% block body_block %}
+<style>
+    #myResult {
+        background-color:#A2A5B2;
+        color:black;
+    }
+    #myResult a, i{
+     color:#33364D;
+    }
+    #myResult i{
+     color:#33364D;
+    }
+</style>
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+          <div class="card-body p-0">
+            <div class="row">
+              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+              <div class="col-lg-12">
+                <div class="p-5">
+                  <div class="text-center">
+                    <div class="card shadow mb-4">
+                          <div class="card-header py-3 text-white" style="background-color:#0455A5">
+                              <h6 class="m-0 font-weight-bold exit">All Results</h6>
+                          </div>
+                          <div class="card-body">
+                              <div class="table-responsive form-popup">
+                                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                      <thead>
+                                          <tr class="bg-dark text-white">
+                                              <th width="2vw">S.No</th>
+                                              <th>User Name</th>
+                                              <th>Examination</th>
+                                              <th>Total Marks</th>
+                                              <th>Grade</th>
+                                              <th>View Paper</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% if get_result %}
+                                              {% for g in get_result %}
+                                                <tr>
+                                                  <td>{{forloop.counter}}</td>
+                                                  <td>{{g.student_id}} </td>
+                                                  <td>{{g.exam_id}} </td>
+                                                  <td>{{g.total_marks_obtained}} </td>
+                                                  <td>{{g.grade}} </td>
+                                                  <td><a href="{% url 'showPaperDetailsTeacher' g.exam_id g.student_id%}">View Paper</a></td>
+                                                </tr>
+                                              {% endfor %}
+                                            {% else %}
+                                              <h1>No records yet</h1>
+                                          {% endif %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+
+<form method="POST">
+  {% csrf_token %}
+</form>
+<div class="form-popup form-overlay" id="myForm">
+  <form action="" class="form-container">
+    {% csrf_token %}
+
+    <button type="submit" class="btn">Save</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+{% endblock %}

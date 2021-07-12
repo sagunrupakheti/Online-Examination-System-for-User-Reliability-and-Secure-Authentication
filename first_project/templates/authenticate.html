@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "studentDashboard.html"%}
+{% block body_block %}
+<div class="card shadow p-3 mb-5 bg-white rounded" style="width: 81vw;">
+    <div class="card-body">
+    <form method= POST style="  margin: auto; width: 50%; border: 3px ridge; padding: 50px;">
+         <center>
+        <h3 class="card-title mb-4"><strong>Enter Examination Password</strong></h3>
+      </center>
+        {% csrf_token %}
+        {{form}}
+        <br>
+        <div class="mt-2" >
+            <input type="submit" name="" value="Continue" class="btn text-white" style="background-color:#0455A5">
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

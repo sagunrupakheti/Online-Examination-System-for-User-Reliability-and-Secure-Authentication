@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static "css/mystyle.css" %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    <div class="jumbotron" style="height: 26vh;">
+    	  <div style="margin-left: 45vw">
+          <img src="{% static "images/logo.jpg" %}" alt="My logo image" style="text-align: center; margin-top: -8vh;">
+          <button type="button" class="btn btn-info" style="margin-left: 30vw; margin-top: -25vh; width: 8vw; height: 6vh;">Login</button>
+        </div>
+     </div>
+    <!-- {{ insert_me}} -->
+    <nav class="navbar navbar-default" style="padding: 0;margin-top: -5vh">
+      <div class="container-fluid "  style="display:flex; flex-direction:row;justify-content: space-between;">
+        <ul class="nav navbar-nav ">
+          <li><a href="#" style="width: 32vw; text-align: center"><strong>About</strong></a></li>
+          <li><a href="#" style="width: 32vw; text-align: center"><strong>Contact</strong></a></li>
+          <li><a href="#" style="width: 32vw; text-align: center"><strong>Help</strong></a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container" style="display:flex; flex-direction:row">
+      <div class="row">
+        <div class="col-sm-6" style="padding: 0; margin-left: -12vw; margin-top: -4.4vh">
+            <img src="{% static "images/exam.jpg" %}" alt="My study image" style="height: 63vh; margin-top: 1.5vh; margin-left:0vw; opacity:0.8">
+        </div>
+
+      </div>
+      <div style="margin-left:5vw" class="jumbotron">
+        <h3><strong><center>Login</center></strong></h3>
+        <form action="{% url 'user_login' %}" method="POST">
+          <!-- {{form.as_p}} -->
+          {% csrf_token %}
+          <label for="username">Username:</label>
+          <input type="text" name="username" placeholder="Enter username">
+          <label for="password">Password:</label>
+          <input type="password" name="password" placeholder="Enter password">
+          <input type="submit" class="btn btn-info" style=" width: 6vw; height: 4vh;" value="Login">
+        </form>
+
+      </div>
+    </div>
+
+    <footer class="jumbotron" style="height:5vh; margin-bottom: 0; padding: 0">
+    	<center style='padding-top: 2vh'><strong>Copyright © 2021 Examic</strong></center>
+    </footer>
+  </body>
+</html>

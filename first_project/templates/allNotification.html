@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends 'adminDashboard.html' %}
+{% block body_block %}
+<style>
+    #teacherDash {
+        background-color:#A2A5B2;
+        color:black;
+    }
+    #teacherDash a, i{
+     color:#33364D;
+    }
+    #teacherDash i{
+     color:#33364D;
+    }
+</style>
+  <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 81vw;">
+    <div class="card-body">
+      <div class="text-center">
+        <h1 class="h4 text-gray-900 mb-4"><strong>All Notifications</strong></h1>
+      </div>
+    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+        {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% if notification %}
+      {% for a in notification %}
+        <div>
+        <div>
+            <span class="list-group-item mt-2 bg-light">{{a.notification_text}}<br><span style="margin-left:70vw;font-size:0.8em;">{{a.notification_date}}</span></span>
+
+        </div>
+
+        </div>
+      {% endfor %}
+    {% endif %}
+      </div>
+
+{% endblock %}

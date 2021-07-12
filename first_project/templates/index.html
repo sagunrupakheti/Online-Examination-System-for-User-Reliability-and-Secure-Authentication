@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <style>
+  html{
+    scroll-behavior: smooth;
+  }
+  </style>
+  <title>Examic</title>
+  <link rel="shortcut icon" href="{%static "images/top.jpg" %}" />
+  <!-- Bootstrap core CSS -->
+  <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet">
+  <link href="{% static "vendor/simple-line-icons/css/simple-line-icons.css" %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.min.css" rel="stylesheet">
+  <link href="{% static "css/landing-page.min.css" %}" rel="stylesheet">
+
+</head>
+
+<body>
+  <header class="masthead text-white text-center">
+    <div class="overlay " style="background-image: url('/static/images/sky.jpg');background-repeat: no-repeat;background-position:bottom;opacity:1;height:75vh;">
+
+    </div>
+
+    <div class="col-md-10 col-lg-8 col-xl-7 mx-auto " >
+      <div class="row">
+    <div class="col-md-2 col-sm-2 mt-0">
+      <button class="btn btn-block rounded-pill bg-dark btn-sm" style="margin-top:-10vw; ">
+        <a href="#loginSection" style="text-decoration:none;color:white;">
+                <i class="fas fa-arrow-down"></i>
+                    <span>Sign in</span></a></a></button>
+      </button>
+    </div>
+    <div class="col-md-2 col-sm-2 " style="margin-left: 13vw;">
+     <img src="{% static 'images/logo.jpg'%}" style="opacity:0.9">
+    </div>
+  </div>
+    </div>
+
+<!--    <div class="container">-->
+<!--      <div class="row mb-0">-->
+<!--        <div class="col-xl-9 mx-auto mb-4 mt-5">-->
+<!--&lt;!&ndash;          <h1 class="mb-9 text-black" style=" font-family: Cursive, Courier New;color:#33364D"><strong>Your one stop solution to safe examination!</strong></h1>&ndash;&gt;-->
+<!--        </div>-->
+
+<!--    </div>-->
+  </header>
+
+  <!-- Icons Grid -->
+  <section class="features-icons bg-light text-center mt-0" style="margin-top:-3vh">
+    <div class="container" style="margin-top:-13vh;">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-screen-desktop m-auto text-primary"></i>
+            </div>
+            <h3>Easy Examination</h3>
+            <p class="lead mb-0">Easy for staff to conduct examinations, set questions and grade examinations!</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-user m-auto text-primary"></i>
+            </div>
+            <h3>User Authentication</h3>
+            <p class="lead mb-0">Authenticates users before examinations!</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="icon-check m-auto text-primary"></i>
+            </div>
+            <h3>Easy to Use</h3>
+            <p class="lead mb-0">Easy to use and convenient!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Showcases -->
+  <section class="showcase">
+    <div class="container-fluid p-0">
+      <div class="row no-gutters">
+
+        <div class="col-lg-6 order-lg-2 text-white showcase-img " style="background-image: url('/static/images/exam.png');"></div>
+        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+          <h2>Exam Authentication</h2>
+          <p class="lead mb-0">Exams are authenticated through examination passwords!</p>
+        </div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-lg-6 text-white showcase-img" style="background-image: url('/static/images/class.png');"></div>
+        <div class="col-lg-6 my-auto showcase-text">
+          <h2>User Experience</h2>
+          <p class="lead mb-0">Auto grading system with submission tracking, timer, auto grading, face recognition and many more...</p>
+        </div>
+      </div>
+      <div class="row no-gutters" >
+        <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('/static/images/study.jpg');"></div>
+        <div class="col-lg-6 order-lg-1 my-auto showcase-text" id = "loginSection">
+
+            <h2>Login</h2>
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                                    {{message}}
+              </div>
+              {% endfor %}
+            {% endif %}
+            <form class="user" method="POST" action="{% url 'user_login' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                  <input type="text" name="username" class="form-control form-control-user"
+                      id="exampleInputEmail" aria-describedby="emailHelp"
+                      placeholder="Enter Username..." >
+              </div>
+              <div class="form-group">
+                  <input type="password" name="password" class="form-control form-control-user"
+                      id="exampleInputPassword" placeholder="Password" >
+              </div>
+   <input type="submit" class="btn text-white" style="background-color:#0455A5;"  value="Login">
+</form>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+
+            </li>
+            <li class="list-inline-item"></li>
+            <li class="list-inline-item">
+
+            </li>
+          </ul>
+          <p class="text-muted small mb-4 mb-lg-0">&copy; Examic <script>document.write(new Date().getFullYear())</script> All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mr-3">
+              <a href="https://www.facebook.com/sagun.rupakheti">
+                <i class="fab fa-facebook fa-2x fa-fw"></i>
+              </a>
+            </li>
+            <li class="list-inline-item mr-3">
+              <a href="https://twitter.com/">
+                <i class="fab fa-twitter-square fa-2x fa-fw"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.instagram.com/sagun.rupakheti/">
+                <i class="fab fa-instagram fa-2x fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

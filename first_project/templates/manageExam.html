@@ -1,0 +1,142 @@
+<!-- necesssary to add doctype -->
+<!DOCTYPE html>
+{% extends "adminDashboard.html"%}
+{% load static %}
+{% block body_block %}
+<style>
+    #manageExam {
+        background-color:#A2A5B2;
+
+    }
+    #manageExam a, i{
+     color:#33364D;
+    }
+    #manageExam i{
+     color:#33364D;
+    }
+</style>
+<div class="container">
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg ">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+
+          <div class="row">
+            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+            <div class="col-lg-11">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4"><strong>{{exam_text}}</strong></h1>
+                  <hr>
+                </div>
+                <form method="POST" >
+                  {% csrf_token %}
+                    <div class="row mt-4">
+                        <div class="row col-4 mt-4">
+                            <label>Course:</label>
+                            {{form.course_code}}
+                        </div>
+                        <div class="row col-4 ml-2 mt-4">
+                            <label>Total Duration in minutes:</label>
+                            {{form.duration}}
+                        </div>
+                        <div class="row col-4 ml-2 mt-4">
+                            <label>Exam Date:</label>
+                            {{form.exam_date}}
+                        </div>
+                        <div class="row col-12 mt-4">
+                            <label>Examination Name:</label>
+                            {{form.examName}}
+                        </div>
+                    </div>
+
+                  <br>
+                  <input type="submit" name="addExam" value={{add_type}}_Examination class="btn text-white" style="background-color:#0455A5;">
+              </form>
+              </form>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="card o-hidden border-0 shadow-lg my-2">
+              <div class="card-body p-0">
+                <div class="row">
+                  <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+                  <div class="col-lg-12">
+                    <div class="p-5">
+                      <div class="">
+                        <div class="card shadow mb-4">
+                            {% if messages %}
+                              {% for message in messages %}
+                                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                                {{message}}
+                                </div>
+                              {% endfor %}
+                            {% endif %}
+                              <div class="card-header text-white py-3" style="background-color:#0455A5;">
+                                  <h6 class="m-0 font-weight-bold">All Examinations</h6>
+                              </div>
+                           <form class="mb-0" method="POST" style="padding:1%">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="row col-3 ml-2">
+                                        {{myFilter.form}}
+                                    </div>
+                                <input type="submit" value="Search" class="btn text-white" style="background-color:#0455A5;height:5vh;">
+                                 </div>
+                            </form>
+                              <div class="card-body ">
+                                  <div class="table-responsive">
+                                      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                          <thead>
+                                              <tr class="bg-dark text-white text-center">
+                                                <th style="width:2vw">S.No</th>
+                                                <th>Exam Name</th>
+                                                <th>Duration</th>
+                                                <th>Exam Date</th>
+                                                <th>Course</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              {% if exam_dict %}
+                                                  {% for e in exam_dict %}
+                                                    <tr>
+                                                      <td>{{forloop.counter}}.</td>
+                                                      <td>{{e.examName}} </td>
+                                                      <td>{{e.duration}} minutes</td>
+                                                      <td>{{e.exam_date}} </td>
+                                                      <td>{{e.course_code}}</td>
+
+                                                      <td><a href="{% url 'updateExam' e.examId %}" style="text-decoration:none"><i class="fas fa-edit text-success"></i></a></td>
+                                                      <td><a href="{% url 'deleteExam' e.examId %}" style="text-decoration:none"><i class="fas fa-trash-alt text-danger"></i></a></td>
+                                                    </tr>
+                                                  {% endfor %}
+                                                {% else %}
+                                                  <h1>No exams yet!</h1>
+                                              {% endif %}
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                          </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

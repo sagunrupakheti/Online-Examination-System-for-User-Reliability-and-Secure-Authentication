@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% extends temp %}
+
+{% block body_block %}
+<style>
+     #expiredExam{
+        background-color:#A2A5B2;
+
+    }
+    #expiredExam a, i{
+     color:#33364D;
+    }
+    #expiredExam i{
+     color:#33364D;
+    }
+</style>
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+          <div class="card-body p-0">
+            <div class="row">
+              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+              <div class="col-lg-12">
+                <div class="p-5">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <div class="col-xl-9 mx-auto mb-4 mt-0">
+                             <h1 class="mb-9 " style="color:#33364D"><strong><center>Student Response</center></strong></h1>
+                            <hr>
+                        </div>
+                     </div>
+                    <div style="margin-left:50vw;margin-top:-6vh;">
+                        <label><strong>Student Name:</strong>  {{fname}}</label>
+                        <br>
+                        <label><strong>Course:</strong> {{course}}</label>
+                        <br>
+                        <label><strong>Examination:</strong>  {{examName}}</label>
+                        <br>
+                        <label><strong>Marks Obtained:</strong> {{marks}} out of {{total}}</label>
+                        <br>
+                        <label><strong>Grade:</strong> {{grade}}</label>
+                    </div>
+                      {% if question %}
+                          {% for e,j in question %}
+                            <form method="POST">
+                               {% csrf_token %}
+                                {{e.name}}
+                            <hr>
+                            <strong>
+                                {{forloop.counter}}.
+                                {{e.question}}
+                            </strong>
+                            <br>
+                            a: &nbsp;&nbsp;<label >{{e.option1}}</label><br>
+                             b: &nbsp;&nbsp;<label >{{e.option2}}</label><br>
+                             c: &nbsp;&nbsp;<label >{{e.option3}}</label><br>
+                             d: &nbsp;&nbsp;<label >{{e.option4}}</label><br>
+                                <input type="hidden" name= 'ques_id' value={{e.id}}>
+                                <label class="text-success">Answer: {{e.answer}}</label>
+                                <br>
+                                <label>Response: {{j.obj_answer}}</label>
+                                <br>
+                                <label style="margin-left:60vw">Total Weight: {{e.total_marks}}</label>
+                          {% endfor %}
+<!--                                <div>-->
+<!--                                    <input type="submit" class="btn btn-info"  value="Submit">-->
+<!--                                </div>-->
+                                   {% else %}
+                          <h1>Hello</h1>
+                           </form>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+{% endblock %}

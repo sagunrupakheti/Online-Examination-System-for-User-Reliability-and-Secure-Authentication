@@ -1,0 +1,228 @@
+<!-- necesssary to add doctype -->
+<!DOCTYPE html>
+{% extends "studentDashboard.html"%}
+{% load static %}
+{% block body_block %}
+<style>
+    #studentDash {
+        background-color:#A2A5B2;
+        color:black;
+    }
+    #studentDash a, i{
+     color:#33364D;
+    }
+    #studentDash i{
+     color:#33364D;
+    }
+</style>
+
+<!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div class="col-xl-9 mx-auto mb-4 mt-0">
+                         <h1 class="mb-9 " style=" font-family: Cursive, Courier New;color:#33364D"><strong><center>Welcome to EXAMIC!</center></strong></h1>
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-secondary shadow h-100 py-2" style="background-color:#0455A5">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2 ">
+                                        <div class="text-es font-weight-bold text-white text-uppercase mb-1">
+                                          Courses</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white">
+                                            {{course_list}} </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-list fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2" style="background-color:#0455A5">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-s font-weight-bold text-white text-uppercase mb-1">
+                                            Examinations</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white">{{exam_list}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4 ">
+                        <div class="card border-left-info shadow h-100 py-2" style="background-color:#0455A5;">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-s font-weight-bold text-white text-uppercase mb-1">Teachers
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-white">{{teacher_list}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4 ">
+                        <div class="card border-left-warning shadow h-100 py-2" style="background-color:#0455A5">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-s font-weight-bold text-white text-uppercase mb-1">
+                                            Students</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white">{{student_list}}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users   fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="background-color:#0455A5">
+                                    <h6 class="m-0 font-weight-bold text-white" ><center>User and Courses</center></h6>
+                                    <script>
+                                        $(document).ready(function(){
+                                            var ctx = document.getElementById('myChart').getContext('2d');
+                                            var myChart = new Chart(ctx, {
+                                                type: 'pie',
+                                                data: {
+                                                    labels: [{% for c in course %}'{{c.course_id__course_name}}',{% endfor %}],
+                                                    datasets: [{
+                                                        label: '# of Votes',
+                                                        data: [{% for c in course %}'{{c.total}}',{% endfor %}],
+                                                        backgroundColor: [
+                                                            'rgba(255, 99, 132, 0.2)',
+                                                            'rgba(54, 162, 235, 0.2)',
+                                                            'rgba(255, 206, 86, 0.2)',
+                                                            'rgba(75, 192, 192, 0.2)',
+                                                            'rgba(153, 102, 255, 0.2)',
+                                                            'rgba(255, 159, 64, 0.2)'
+                                                        ],
+                                                        borderColor: [
+                                                            'rgba(255, 99, 132, 1)',
+                                                            'rgba(54, 162, 235, 1)',
+                                                            'rgba(255, 206, 86, 1)',
+                                                            'rgba(75, 192, 192, 1)',
+                                                            'rgba(153, 102, 255, 1)',
+                                                            'rgba(255, 159, 64, 1)'
+                                                        ],
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    </script>
+<!--                                    <canvas id="myChart" width="400" height="400"></canvas>-->
+
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                       <canvas id="myChart" height="120"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"style="background-color:#0455A5">
+                                    <h6 class="m-0 font-weight-bold text-white">Total Users</h6>
+                                    <script>
+                                        $(document).ready(function(){
+                                            var ctx = document.getElementById('newBar').getContext('2d');
+                                            var myChart = new Chart(ctx, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: [{% for u in userType %}'{{u.userType}}',{% endfor %}],
+                                                    datasets: [{
+                                                        label: '# of Votes',
+                                                        data: [{% for u in userType %}'{{u.total}}',{% endfor %}],
+                                                        backgroundColor: [
+                                                            'rgba(255, 99, 132, 0.2)',
+                                                            'rgba(54, 162, 235, 0.2)',
+                                                            'rgba(255, 206, 86, 0.2)',
+                                                            'rgba(75, 192, 192, 0.2)',
+                                                            'rgba(153, 102, 255, 0.2)',
+                                                            'rgba(255, 159, 64, 0.2)'
+                                                        ],
+                                                        borderColor: [
+                                                            'rgba(255, 99, 132, 1)',
+                                                            'rgba(54, 162, 235, 1)',
+                                                            'rgba(255, 206, 86, 1)',
+                                                            'rgba(75, 192, 192, 1)',
+                                                            'rgba(153, 102, 255, 1)',
+                                                            'rgba(255, 159, 64, 1)'
+                                                        ],
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    </script>
+
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="newBar" style="max-height:35vh;"></canvas>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

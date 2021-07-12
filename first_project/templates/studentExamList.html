@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% extends "studentDashboard.html"%}
+{% block body_block %}
+<style>
+    #myExam {
+        background-color:#A2A5B2;
+        color:black;
+    }
+    #myExam a, i{
+     color:#33364D;
+    }
+    #myExam i{
+     color:#33364D;
+    }
+</style>
+{% csrf_token %}
+<div class="container">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+
+    <div class="col-xl-12 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg ">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+          <div class="card-body p-0">
+            <div class="row">
+              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
+              <div class="col-lg-12">
+                <div class="p-5">
+                  <div class="text-center">
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3 text-white" style="background-color:#0455A5;">
+                          <h6 class="m-0 font-weight-bold ">Live Examinations</h6>
+                      </div>
+                        {% if messages %}
+                          {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                            {{message}}
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="table-responsive form-popup">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr class="bg-dark text-white">
+                                            <th width="2vw">S.No</th>
+                                            <th scope="row">Exam Name</th>
+                                            <th>Duration</th>
+                                            <th>Due</th>
+                                            <th>Exam Link</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if exam_dict %}
+                                            {% for e in exam_dict %}
+                                              <tr>
+                                                <td>{{forloop.counter}}.</td>
+                                                <td>{{e.examName}} </td>
+                                                <td>{{e.duration}} minutes</td>
+                                                <td>{{e.exam_date}} </td>
+                                                <td><a href={% url 'authenticateUser' e.examId %}>Give Exam</a></td>
+                                              </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                           <h3>No examination live now!</h3>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}

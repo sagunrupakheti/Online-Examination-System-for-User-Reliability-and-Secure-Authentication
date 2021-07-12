@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% extends "studentDashboard.html"%}
+{% block body_block %}
+<style>
+ @font-face {
+  font-family: 'digital-7';
+  src: url('../fonts/digital-7.ttf');
+}
+.timer {
+    color:black;
+    font-weight:bold;
+    font-size:2em;
+    font-family:'digital-clock-font';
+}
+
+</style>
+    <h1><center>Questions</center></h1>
+    Remaining Time:
+<div id="event-box" style="display:None;" class="mt-4">
+    {{exam_end_time|date:"Y/m/d H:i:s"}}
+</div>
+<div id="countdown-box">
+    <div class="spinner-border" role="status"></div>
+</div>
+<!-- if the question is passed from the view-->
+    {% if question %}
+<!--looping through the questions -->
+      {% for e in question %}
+        <form method="POST">
+           {% csrf_token %}
+            <hr>
+            <strong>
+                {{forloop.counter}}.<!--for loop counter for question number-->
+                {{e.question}}<!--display question-->
+            </strong><br><!--display the options for the question-->
+            a:&nbsp;&nbsp;<label >{{e.option1}}</label><br>
+            b: &nbsp;&nbsp;<label >{{e.option2}}</label><br>
+            c: &nbsp;&nbsp;<label >{{e.option3}}</label><br>
+            d: &nbsp;&nbsp;<label >{{e.option4}}</label><br>
+            <input type="hidden" name= 'ques_id' value={{e.id}}><!--send question id as POST through a hidden input field-->
+            <select name="answerSelect" class="form-control col-3"><!--select option for option selection-->
+                <option value="">Select Option</option>
+                <option value="Option1">Option 1</option>
+                <option value="Option2">Option 2</option>
+                <option value="Option3">Option 3</option>
+                <option value="Option4">Option 4</option>
+            </select>
+      {% endfor %}
+       <div class="mt-2" >
+            <input type="submit" name="" value="Submit" class="btn text-white" style="background-color:#0455A5">
+        </div>
+    </form>
+    {% else %}
+      <h1>No Questions for the examination!</h1>
+    {% endif %}
+     <script>
+        const eventBox = document.getElementById('event-box')
+        const date = new Date()
+        date.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' })
+        console.log(date)
+        const countdownBox = document.getElementById('countdown-box')
+
+        //get milliseconds
+        const endDate = Date.parse(eventBox.textContent)
+        text = eventBox.textContent
+        text.toLocaleString('en-US', { timeZone: 'Asia/Kathmandu' })
+        console.log(text)
+        ed = Date.parse(text)
+        console.log(ed)
+
+
+        const myCountdown= setInterval(()=>{
+            const currentDate = new Date().getTime()
+            console.log(currentDate)
+            console.log(ed)
+            const difference = ed - currentDate
+            console.log(difference)
+            //days
+            const d = Math.floor(ed/(1000*60*60*24)-(currentDate/(1000*60*60*24)))
+            //hrs
+            const h = Math.floor((ed/(1000*60*60)-(currentDate/(1000*60*60))) % 24)
+            // mins
+            const m = Math.floor((ed/(1000*60)-(currentDate/(1000*60))) % 60)
+            //seconds
+            const s = Math.floor((ed/(1000)-(currentDate/(1000))) % 60)
+
+            if (difference>0){
+            countdownBox.innerHTML = '<span class="timer">'+ h+h+ ":"+ m+ ":"+s+ ""+'</span>'
+            }
+            else{
+               clearInterval(myCountdown)
+               countdownBox.innerHTML = "Time Over"
+            }
+        }, 1000)
+     </script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="jumbotron" style="width:85vw; height: 5vh; margin-left: 15vw">
+	<div style="margin-left: 45vw">
+		<i class="fa fa-cog" style="margin-left: 31vw"></i>
+		<button type="button" class="btn btn-info" style="margin-top: -7vh;margin-left: 33vw; width: 5vw; height: 9vh;border-radius: 50%;">Profile</button>
+	</div>
+</div>
+	<nav class="navbar navbar-default" style="padding: 0; margin-top: -17vh; width: 15vw; height:95vh; margin-bottom: 0;">
+		<img src="{% static "images/logo.jpg" %}" alt="My logo image" style="text-align: center; width:5vw;margin-left:10vh">
+  <div class="container-fluid "  style="display:flex; justify-content: space-between;">
+    <ul class="nav flex-column "style="margin-top: 8vh">
+      <li class="bg-success"><a href="#" style="width: 14vw;"><strong><i class="fa fa-server" style="margin-right: 1vh; padding-top: 2vh"></i>Dashboard</strong></a></li>
+      <li><a href="#" style="width: 14vw;"><strong><i class="fa fa-user-circle" style="margin-right: 1vh; padding-top: 2vh"></i>Manage Admin</strong></a></li>
+      <li><a href="#" style="width: 14vw;"><strong><i class="fa fa-user" style="margin-right: 1vh;padding-top: 2vh"></i>Manage Teacher</strong></a></li>
+      <li><a href="#" style="width: 14vw;"><strong><i class="fa fa-users" style="margin-right: 1vh;padding-top: 2vh"></i>Manage Student</strong></a></li>
+      <li><a href="manageExam" style="width: 14vw;"><strong><i class="fa fa-list " style="margin-right: 1vh;padding-top: 2vh"></i>Manage Exam</strong></a></li>
+      <li><a href="#" style="width: 14vw;"><strong><i class="fa fa-list-alt" style="margin-right: 1vh;padding-top: 2vh"></i>Manage Result</strong></a></li>
+      <li><a href="formpage" style="width: 14vw;"><strong><i class="fa fa-power-off" style="margin-right: 1vh;padding-top: 2vh"></i>Logout</strong></a></li>
+    </ul>
+  </div>
+</nav>
+<div class="w-0 jumbotron" style=" margin-left: 16vw; height:78vh; margin-top: -80vh; margin-bottom:2vh; margin-right:1vw">
+<p>Hello</p>
+</div>
+<footer class="jumbotron" style="height:5vh; margin-bottom: 0; padding: 0; margin-top: 0">
+	<center style='padding-top: 2vh'><strong>Copyright © 2021 Examic</strong></center>
+</footer>
+</body>
+</html>
